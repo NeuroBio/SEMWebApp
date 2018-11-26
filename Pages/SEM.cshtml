@@ -1,0 +1,418 @@
+﻿@page "/SEM"
+@using SEMStandard;
+
+<h1>Song Evolution Model</h1>
+<hr>
+
+<div style="width:950px">
+    <div class='container'>
+        <div class='container'>
+        <div style="float:left;width:200px;">
+                <b>Learning Strategy</b><br/>
+                <input type = "radio" name="LearnStrat" value="Add" checked="@(LearnStrat == "Add")" onchange="@(() => SetLearning("Add"))" />Add<br/>
+                <input type = "radio" name="LearnStrat" value="AddForget" checked="@(LearnStrat == "AddForget")" onchange="@(() => SetLearning("AddForget"))" />AddForget<br/>
+                <input type = "radio" name="LearnStrat" value="AddConsensus" checked="@(LearnStrat == "Consensus")" onchange="@(() => SetLearning("Consensus"))" />Consensus<br/>
+                <input type = "radio" name="LearnStrat" value="No Oblique" checked="@(Oblique == false)" onchange="@(() => SetLearning("NoOblique"))" />No Oblique<br/>
+                <br/>
+                <div class="slidecontainer"> 
+                    <b>Consensus Tutors</b><br/>
+                    <input bind="@NoTut" type="range" min="2" max="12" step="1" class="slider" disabled="@ConTutDisabled" /> @NoTut        
+                </div> <br/> 
+            </div>
+        </div>
+        <div class='container'>
+            <div class='container'>
+                <div style="float:left; width:200px;">
+                    <b>Breeding Scope</b><br/>
+                    <input type = "radio" name="ScopeB" value="Global" checked="@(ScopeB == false)" onchange="@(() => SetLocal(true, false))"/>Global<br/>
+                    <input type = "radio" name="ScopeB" value="Local" checked="@(ScopeB == true)" onchange="@(() => SetLocal(true, true))"/>Local<br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="slidecontainer"> 
+                        <b>Local Steps</b><br/>
+                        <input bind="@LSteps" type="range" min="1" max="10" step="1" class="slider" disabled="@StepsDisabled" /> @LSteps <br/>       
+                    </div> 
+                </div>
+                <div style="float:left;width:200px;">
+                    <b>Tutor Scope</b><br/>
+                    <input type = "radio" name="ScopeT" value="Global" checked="@(ScopeT == false)" onchange="@(() => SetLocal(false, false))"/>Global<br/>
+                    <input type = "radio" name="ScopeT" value="Local" checked="@(ScopeT == true)" onchange="@(() => SetLocal(false, true))"/>Local<br/>
+                </div>
+            </div>
+            <div class='container'>
+                <div style="float:left;width:600px;">
+                    <b>Warning:</b> generating local relationships lags parameter creation significantly!
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div style="clear: both;"></div>
+    <br/><hr>
+
+    <b>Preference</b>
+    <div class="slidecontainer"> 
+        Template Matching (@Math())
+        <input bind="@RepPref" type="range" min="0" max="1" step=".01" class="slider" />
+        Larger Repertoire (@RepPref)
+    </div>
+    <br />
+    <hr>
+    <div class='container'>
+        <div style="float:left; width:250px;">
+            <b>Repertoire Size</b><br />
+            <div class="slidecontainer"> 
+                <input bind="@RepSize" type="range" min="1" max="40" step="1" class="slider" />@RepSize
+            </div>
+        </div>
+        <div style="float:left; width:250px;">
+            <b>Repertoire Overhang</b><br />
+            <div class="slidecontainer"> 
+                <input bind="@RepOH" type="range" min="0" max="2" step=".01" class="slider" />@RepOH
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        0
+        <svg width="500" height="30">
+            <rect width="500" height="30" style="fill:rgb(210,210,210);" />
+            <rect width="@OH2()" height="30" style="fill:rgb(58,80,107);"/>
+            <rect width="@OH1()" height="30" style="fill:rgb(108,145,194);" />
+            <rect width="@RepSize" height="30" style="fill:rgb(0,0,0);"/>
+        </svg>
+        500
+        <br />
+        <div style="float:left; width:30px;">
+        <svg width="50" height="90">
+            <rect y="4" width="20" height="20" style="fill:rgb(0,0,0);" />
+            <rect y="26" width="20" height="20" style="fill:rgb(108,145,194);" />
+            <rect y="48" width="20" height="20" style="fill:rgb(58,80,107);" />              
+            <rect y="70" width="20" height="20" style="fill:rgb(210,210,210);" />
+        </svg>
+        </div>
+        <div style="float:left; width:250px;">
+            90% chance to know <br/>
+            10% chance to know <br/>
+            1% chance to know <br/>
+            0% chance to know <br/>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <hr>
+
+    <div class='container'>
+        <div style="float:left; width:250px;">
+            <b>Accuracy</b>
+            <div class="slidecontainer"> 
+                <label>Initial</label>
+                <input bind="@initACC" type="range" min="0" max="1" step=".01" class="slider" /> @initACC        
+                <br/>
+                <label>Noise</label> 
+                <input bind="@NoiseACC" type="range" min="0" max=".5" step=".01" class="slider" /> @NoiseACC    
+            </div>
+        </div>
+        <div>
+            <b>Learning Threshold</b>
+            <div class="slidecontainer"> 
+                <label>Initial</label>
+                <input bind="@initLTH" type="range" min="0" max="@MaxAge" step=".25" class="slider" /> @initLTH        
+                <br/>
+                <label>Noise</label> 
+                <input bind="@NoiseLTH" type="range" min="0" max="10" step=".25" class="slider" /> @NoiseLTH    
+            </div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+    <div class='container'>
+        <div style="float:left; width:250px;">
+            <b>Chance to Forget</b>
+            <div class="slidecontainer"> 
+                <label>Initial</label>
+                <input bind="@initCTF" type="range" min="0" max="1" step=".01" class="slider" /> @initCTF        
+                <br/>
+                <label>Noise</label> 
+                <input bind="@NoiseCTF" type="range" min="0" max=".5" step=".01" class="slider" /> @NoiseCTF    
+            </div>
+        </div>
+        <div>
+            <b>Chance to Invent</b>
+            <div class="slidecontainer"> 
+                <label>Initial</label>
+                <input bind="@initCTI" type="range" min="0" max="1" step=".01" class="slider" /> @initCTI        
+                <br/>
+                <label>Noise</label> 
+                <input bind="@NoiseCTI" type="range" min="0" max=".5" step=".01" class="slider" /> @NoiseCTI    
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div style="clear: both;"></div>
+    <div class='container'>
+        <div style="float:left; width:250px;">
+            <b>Learning Penalty</b><br />
+            <div class="slidecontainer"> 
+                <input bind="@LPen" type="range" min="0" max="5" step=".01" class="slider" />@LPen
+            </div>
+        </div>
+        <div style="float:left; width:250px;">
+            <b>Chick Survival</b><br />
+            <div class="slidecontainer"> 
+                <input bind="@Chick" type="range" min=".1" max=".9" step=".01" class="slider" />@Chick
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div style="float:left; width:250px;">
+            <b>Encounter Success</b><br />
+            <div class="slidecontainer"> 
+                <input bind="@EnSuc" type="range" min="0" max="1" step=".01" class="slider" />@EnSuc
+            </div>
+        </div>
+        <div style="float:left; width:250px;">
+            <b>Maximum Age</b><br />
+            <div class="slidecontainer"> 
+                <input bind="@MaxAge" type="range" min="5" max="35" step="1" class="slider" />@MaxAge
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <br/>
+        <div>
+            <b>Listening Threshold</b>
+            <div class="slidecontainer"> 
+                <label>Number of Syllabless</label>
+                <input bind="@LisThrsh" type="range" min="1" max="7" step="1" class="slider" /> @LisThrsh        
+                <br/>
+                Or
+                <br/>
+                <label>Percentage of Repertoire</label> 
+                <input bind="@LisThrsh" type="range" min="0" max=".999" step=".01" class="slider" /> @LisThrsh    
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div style="clear: both;"></div>
+
+
+    <div class='container' style="height=680px">
+        <div style="float:left;width:250px;height:500px">
+            <img src="/Images/Chicka1.png"/>
+            <br/>
+            <button onclick="@SetParam">Set Parameters</button>
+            @ParStatus
+            <br/>
+            <button onclick="@RunSimulation" disabled ="@NotReady">Run Sim</button>
+            @Status
+            <br/>
+            Current Step: @CurrentStep
+            <br/>
+            <br/>
+            <label>SimStep Increment:</label>
+            <input bind="@Incre" @type = "number" @min = "0" @max="1" @step = "0.01"/>
+            <svg width="250" height="1">
+                <rect width="250" height="1" style="fill:rgb(0,0,0);" />
+            </svg>
+            <b>Average Rep:</b> @AverageRep<br/>
+            <b>Average Match:</b> @AverageMatch<br/>
+            <b>Average Acc:</b> @AverageAcc<br/>
+            <b>Average LrnTh:</b> @AverageLrnTh<br/>
+            <b>Average CtI:</b> @AverageCtI<br/>
+            <b>Average CtF:</b> @AverageCtF<br/>
+        </div>
+        <div style="float:left;width:602px;height:700px;">
+            <div style="width:602px;height:37px;">
+                <input type = "radio" name="ColorPlot" value="SyllableRep" checked="@(TableCol == 1)" onchange="@(() => QuickSwitch(1))" disabled ="@NotReady" />Syllable Rep&nbsp;&nbsp;
+                <input type = "radio" name="ColorPlot" value="Match" checked="@(TableCol == 2)" onchange="@(() => QuickSwitch(2))" disabled ="@NotReady" />Match&nbsp;&nbsp;
+                <input type = "radio" name="ColorPlot" value="Accuracy" checked="@(TableCol == 3)" onchange="@(() => QuickSwitch(3))" disabled ="@NotReady" />Accuracy&nbsp;&nbsp;
+                <input type = "radio" name="ColorPlot" value="LrnThresh" checked="@(TableCol == 4)" onchange="@(() => QuickSwitch(4))" disabled ="@NotReady" />Learning Threshold<br/>
+            </div>
+            <div style="width:602px;height:602px;border: 1px solid black">
+                <table id="BirdMatrix">
+                    <tr><td>Not Yet Initialized!</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <br/><hr>
+</div>
+
+
+@functions {
+
+    float test1;
+    float test2;
+    float test3;
+    float test4;
+    double test5;
+    string test6;
+
+    string ParStatus="Parameter-0";
+    int ParCount=1;
+    int TableCol =1;
+    bool ConTutDisabled=true;
+    bool StepsDisabled=true;
+    bool NotReady=true;
+
+    bool ScopeB=false;
+    bool ScopeT=false;
+    int MaxAge =20;
+    int RepSize=5;
+    int NoTut=8;
+    int LSteps=1;
+    double LisThrsh=7;
+    double EnSuc=.95;
+    double Chick=.3;
+    double LPen=.75;
+    double RepOH=.25;
+    double initACC=.7;
+    double NoiseACC=.15;
+    double initLTH=2;
+    double NoiseLTH=.25;
+    double initCTI=.1;
+    double NoiseCTI=0;
+    double initCTF=.2;
+    double NoiseCTF=0;
+    double RepPref=1;
+    string LearnStrat="Add";
+    bool Oblique = true;
+
+    Nullable<float> AverageRep=null;
+    Nullable<float> AverageAcc=null;
+    Nullable<float> AverageLrnTh=null;
+    Nullable<float> AverageMatch=null;
+    Nullable<float> AverageCtI=null;
+    Nullable<float> AverageCtF=null;
+
+    SimParams Par=new SimParams();
+    Population Pop;
+    int Incre=10;
+    int CurrentStep=0;
+    string Status="Not Active";
+
+    double Math(){
+        return(1-RepPref);
+    }
+    int OH1(){
+        return(RepSize+Convert.ToInt32(RepSize*RepOH));
+    }
+    int OH2(){
+        return(RepSize+Convert.ToInt32(RepSize*RepOH)*2);
+    }
+    void SetLearning(string value){
+        if(value == "NoOblique"){
+            Oblique = false;
+            ConTutDisabled=true;
+        }else{
+        LearnStrat=value;
+        Oblique = true;
+        if(value == "Consensus"){
+            ConTutDisabled=false;
+        }else{
+            ConTutDisabled=true;
+        }
+
+        }
+    }
+
+    void SetLocal(bool breed, bool value){
+        if(breed){
+            ScopeB=value;
+        }else{
+            ScopeT=value;
+        }
+        if(ScopeT == true || ScopeB == true){
+            StepsDisabled=false;
+        }else{
+            StepsDisabled=true;
+        }
+    }
+    
+
+    async void SetParam(){
+        ParStatus="Generating!";
+        await Task.Run(StateHasChanged);
+        if(initLTH > MaxAge){
+            initLTH = MaxAge;
+        }
+        Par=new SimParams(maxAge:MaxAge, localBreeding:ScopeB, localTutor:ScopeT,
+        initialSyllableRepertoireSize:RepSize,numTutorConsensusStrategy:NoTut,
+        steps:LSteps,listeningThreshold:(float)LisThrsh,encounterSuccess:(float)EnSuc,
+        chickSurvival:(float)Chick,learningPenalty:(float)LPen,
+        percentSyllableOverhang:(float)RepOH,initialAccuracy:(float)initACC,
+        inheritedAccuracyNoise:(float)NoiseACC,
+        initialLearningThreshold:(float)initLTH,
+        inheritedLearningThresholdNoise:(float)NoiseLTH,
+        initialChancetoInvent:(float)initCTI,
+        inheritedChancetoInventNoise:(float)NoiseCTI,
+        initialChancetoForget:(float)initCTF, learningStrategy:LearnStrat,
+        inheritedChancetoForgetNoise:(float)NoiseCTF, obliqueLearning:Oblique,
+        matchPreference:(float)Math(),repertoireSizePreference:(float)RepPref);
+        Pop=new Population(Par);
+        AssignAves();
+        ParCount+=1;
+        CurrentStep=0;
+        NotReady=false;
+        await PromptInterop.BirdMatrixUpdate(Pop.Age, SetColors(TableCol, Pop));
+        ParStatus=string.Format("Parameters-{0}",ParCount);
+        StateHasChanged();
+    }
+    async void RunSimulation(){
+        Status="Active";
+        await Task.Run(StateHasChanged);
+        Pop=Simulations.WebSim(Par,Pop,Incre);
+        CurrentStep+=Incre;
+        Status="Not Active";
+        AssignAves();
+        await PromptInterop.BirdMatrixUpdate(Pop.Age, SetColors(TableCol, Pop));
+        StateHasChanged();
+    } 
+    void AssignAves(){
+        this.AverageRep=(float)Pop.SyllableRepertoire.Average();
+        this.AverageAcc=(float)Pop.Accuracy.Average();
+        this.AverageLrnTh=(float)Pop.LearningThreshold.Average();
+        this.AverageMatch=(float)Pop.Match.Average();
+        this.AverageCtI=(float)Pop.ChanceInvent.Average();
+        this.AverageCtF=(float)Pop.ChanceForget.Average();
+    }
+
+    string[] SetColors(int color, Population Pop){
+        float[] VarNeeded;
+        float MAX;
+        float MIN;
+        float BinSize;
+        int Converted;
+        string[] FinalColor;
+        if(color == 1){
+            VarNeeded = Array.ConvertAll(Pop.SyllableRepertoire, x => (float)x);
+        }else if(color == 2){
+            VarNeeded = Pop.Match;
+        }else if(color==3){
+            VarNeeded = Pop.Accuracy;
+        }else{
+            VarNeeded = Pop.LearningThreshold;
+        }
+        MAX=VarNeeded.Max();
+        MIN=VarNeeded.Min();
+        BinSize=(MAX-MIN)/15;
+        
+        FinalColor = new string[VarNeeded.Length];
+        for(int i=0;i<VarNeeded.Length;i++){
+            Converted = 255-(int)((((int)((VarNeeded[i]-MIN)/BinSize))/15f)*255);
+            test5=(int)((((int)((VarNeeded[i]-MIN)/BinSize))/15f)*255);
+            FinalColor[i] = string.Format("rgb({0},{1},{2})", 255,Converted,Converted);
+        }
+        //string[] lol =  new string[400];
+        //for(int i=0;i<400;i++){
+        //    lol[i] = "yellow";
+        //}
+        test1=VarNeeded[399];
+        test2=MAX;
+        test3=MIN;
+        test4=BinSize;
+        test6=FinalColor[399];
+        return(FinalColor);
+    }
+    async void QuickSwitch(int type){
+        this.TableCol = type;
+        await PromptInterop.BirdMatrixUpdate(Pop.Age, SetColors(TableCol, Pop));
+    }
+}
