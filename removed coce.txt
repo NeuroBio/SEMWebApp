@@ -1,0 +1,28 @@
+        <!--
+        <div class='container'>
+            <div class='container'>
+                <div style="float:left; width:200px;">
+                    <b>Breeding Scope</b><br/>
+                    <input type = "radio" name="ScopeB" value="Global" checked="@(ScopeB == false)" onchange="@(() => SetLocal(true, false))"/>Global<br/>
+                    <input type = "radio" name="ScopeB" value="Local" checked="@(ScopeB == true)" onchange="@(() => SetLocal(true, true))"/>Local<br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="slidecontainer"> 
+                        <b>Local Steps</b><br/>
+                        <input bind="@LSteps" type="range" min="1" max="10" step="1" class="slider" disabled="@StepsDisabled" /> @LSteps <br/>       
+                    </div> 
+                </div>
+                <div style="float:left;width:200px;">
+                    <b>Tutor Scope</b><br/>
+                    <input type = "radio" name="ScopeT" value="Global" checked="@(ScopeT == false)" onchange="@(() => SetLocal(false, false))"/>Global<br/>
+                    <input type = "radio" name="ScopeT" value="Local" checked="@(ScopeT == true)" onchange="@(() => SetLocal(false, true))"/>Local<br/>
+                </div>
+            </div>
+            <div class='container'>
+                <div style="float:left;width:600px;">
+                    <b>Warning:</b> generating local relationships lags parameter creation significantly!
+                </div>
+            </div>
+        </div>
+        --> 
