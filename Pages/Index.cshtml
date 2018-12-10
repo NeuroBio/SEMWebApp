@@ -1,17 +1,49 @@
 ﻿@page "/"
-<h4>About:</h4>
-<p>The Song Evolution Model (SEM) is an agent-based model that simulates the effects of different behaviors and evolutionary pressures interact to affect birdsong evolution.  SEM is highly customizable, with over 60 parameters for the user to change, include multiple song-learning strategies, different female preferences, and the ability to allow for birds to interact on a global or local scale.  The full capabilities of SEM and the documentation for the code are described in the Walkthroughs linked to below. </p>
-<p>Published on this website is a limited version of SEM to demonstrate how the model works and visualize how evolution occurs within its confines.  The R version of the model is substantially faster than the webapp version, and the C# version is substantially faster than the R version.  We recommend users choose the C# version if possible.</p>
+<div style="width:900px">
+    <h1>
+        <img src="/Images/HouseFinch.png" height="100"/>About<img src="/Images/canadianwarbler.png" height="100"  style="filter:FlipH"/>
+    </h1>
+    <hr>
 
-<h4>Downloads:</h4>
-<a href="">C# Library Download</a> (not yet public!)<br/>
-<a href="">C# Programs Download</a> (not yet public!)<br/>
-<a href="">C# Model Walkthrough</a> (not yet public!)<br/>
-<br/>
-<a href="">R Model Download</a> (not yet public!)<br/>
-<a href="">R Model Walkthrough</a> (not yet public!)<br/>
-<br/>
+    <p>The Song Evolution Model (SEM) is an agent-based model that simulates how different behaviors and evolutionary pressures interact to affect birdsong evolution.  SEM is highly customizable, with over 60 parameters for the user to change, including multiple song-learning strategies, different female preferences, and the ability to allow for birds to interact on a global or local scale.  The full capabilities of SEM and the documentation for the code are described in the Walkthroughs linked to below. </p>
+    <p>Published on this website is a limited version of SEM to demonstrate how the model works and visualize how evolution occurs within its confines.  Please download the full versions for research purposes.  The R version of the model is substantially faster than the webapp version, and the C# version is substantially faster than the R version.  We recommend users choose the C# version if possible.</p>
 
-<h4>Publications:</h4>
-Robinson, C. and Creanza, N. (2019). title. <i>Journal Vol</i>:Issue, Page-s. doi:<br/>
-Robinson, C. and Creanza, N. (2019). title. <i>Journal Vol</i>:Issue, Page-s. doi:<br/>
+    <h4>Prefered Browsers:</h4>
+    <ol>
+    <li><b>FireFox:</b> seems to run the fastest</li>
+    <li><b>Edge:</b> about comparable to FF</li>
+    <li><b>Chrome:</b> noticible lag</li>
+    <li><b>Internet Explorer:</b> WASM not implemented, cannot be used</li>
+    </ol>
+    <br/>
+    <hr>
+
+    <h4>Downloads:</h4>
+    <a href="">C# Library Download</a> (not yet public!)<br/>
+    <a href="">C# Programs Download</a> (not yet public!)<br/>
+    <a href="">C# Model Walkthrough</a> (not yet public!)<br/>
+    <br/>
+    <a href="">R Model Download</a> (not yet public!)<br/>
+    <a href="">R Model Walkthrough</a> (not yet public!)<br/>
+    <br/>
+    <hr>
+
+    <h4>Publications:</h4>
+    Robinson, C. and Creanza, N. (2019). title. <i>Journal Vol</i>:Issue, Page-s. doi: <a href="">Link!</a><br/>
+    Robinson, C. and Creanza, N. (2019). title. <i>Journal Vol</i>:Issue, Page-s. doi: <a href="">Link!</a><br/>
+    <br/>
+    <br/>
+    <hr>
+    <h4>Contributions:</h4>
+    <b>C. Robinson</b> took skeletal MatLab code, translated it into R and expanded on it.  She further translated the code into C#.  She ran and designed the experiments in the above publications and wrote the manuscripts and walkthroughs.  She developed this web app and created the bird art used within.<br/>
+    <br/>
+    <b>N. Creanza</b> funded this research, came up with the initial idea for the model, and designed experiments.  She also helped write the manuscripts.<br/>
+    <br/>
+    <b>R. Yu</b> wrote the skeletal model in MatLab.<br/>
+    <br/>
+    <b>J. Singer</b> helped derived the equations for the survival curve and conformity flavor of consensus learning.<br/>
+    <br/>
+    <b>K. Walsh</b> wrote the code for the weighted sampling algorithm in C# and helped with solving for the roots of the survival curve equation in C#.<br/>
+    <br/><br/>
+    <hr>
+</div>

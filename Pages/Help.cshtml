@@ -1,41 +1,44 @@
 @page "/Help"
+<div style="width:900px">
+    <h1>Web App Help <img src="/Images/SS.png" height="100"/></h1>
+    <hr>
+    <h4>Overview:</h4>
+    <img src='/Images/cycle.png' width="900px">
+    <p>The Song Evolution Model initializes a population of male birds with several song-learning traits and one song, which exist in a matrix with discrete boundaries. Each timestep, birds can (A) die, or survive to potentially (B) learn and/or (C) father chicks. </p>
+    <p>A) Birds are first chosen to die randomly. However, birds with greater learning age thresholds have a greater chance of being chosen to die than those with smaller learning age thresholds. The amount this chance is increased is dependent on both the size of the learning age threshold and the value of the learning penalty parameter. The number of birds chosen to die is a proportion of the birds in each age group depending on the max age of the population. </p>
+    <p>B) If oblique learning is enabled, any remaining birds that are younger than their learning age threshold have the capacity to learn. Learners chose a tutor male from the population and learn all or part of the tutor’s song using one of three strategies: 1) Add, 2) AddForget or 4) Consensus. </p>
+    <p>C) After the learning step, vacancies left by deceased birds are filled by generating chicks fathered by the remaining birds. Birds are chosen as fathers based on sexual selection pressures of preference for larger repertoire sizes and/or preference for repertoires that match a song template. Birds chosen to be fathers produce one or more chicks, which inherit their father’s song-learning traits with a parameterized amount of random noise. Chicks start with an empty song template and vertically learn their father’s song with an accuracy based on their song-learning ability. </p>
+    <br/>
+    <hr>
 
-<h4>Overview:</h4>
-<img src='/Images/cycle.png' width="900px">
-<p>The Song Evolution Model initializes a population of male birds with several song-learning traits and one song, which exist in a matrix with discrete boundaries. Each timestep, birds can (A) die, or survive to potentially (B) learn and/or (C) father chicks. </p>
-<p>A) Birds are first chosen to die randomly. However, birds with greater learning age thresholds have a greater chance of being chosen to die than those with smaller learning age thresholds. The amount this chance is increased is dependent on both the size of the learning age threshold and the value of the learning penalty parameter. The number of birds chosen to die is either 1) a set percentage or 2) a proportion of the birds in each age group depending on the max age of the population. </p>
-<p>B) If oblique learning is enabled, any remaining birds that are younger than their learning age threshold have the capacity to learn. Learners chose a tutor male from the population and learn all or part of the tutor’s song using one of four strategies: 1) Add, 2) AddForget, 3) Forget, or 4) Consensus. </p>
-<p>C) After the learning step, vacancies left by deceased birds are filled by generating chicks fathered by the remaining birds. Birds are chosen as fathers based on sexual selection pressures which include: 1) preference for larger repertoire sizes, 2) preference for repertoires that match a song template, and/or 3) uniform preference for unknown factors (called “noise” in the model). Fathers may also be preferentially chosen based on their location in the matrix. Birds chosen to be fathers produce one or more chicks, which inherit their father’s song-learning traits with a parameterized amount of random noise. Chicks start with an empty song template and, if enabled, vertically learn their father’s song with an accuracy based on their song-learning ability. </p>
-<br/>
-<hr>
+    <h4>WebApp Parameters:</h4>
+    <p><b>Learning Strategy: </b><br/>
+    The mechanism by which birds learn.  The “Add” strategy allows birds to learn all syllables they hear.  The “AddForget” strategy allows birds to learn all syllables they hear and forget syllables that the learners know but did not hear from their tutor.  The “Consensus” strategy allows birds to listen to multiple tutors.  Birds are more likely to learn syllables that all tutors sang than syllables that only one tutor sang.   They can also forget syllables that the learn knows which no tutor sang.  For the web app, the conformity variant of consensus is implemented.  The “No Oblique” strategy allows for only vertical learning.  The Consensus Tutors slider is only active when the Consensus strategy is chosen and is the number of tutors a learner finds to form a consensus song.</p>
+    <p><b>Repertoire Size: </b><br/>The Repertoire Size slider defines the number of syllables that males have a 90% chance of knowing at the beginning of the simulation.  Repertoire Overhang defines how many syllables birds have a 10% and 1% chance to know at the start of the simulation.  This is a percentage that is multiplied by the repertoire size.  E.g. if repertoire size is 5 and repertoire overhang is .2, birds have a 90% chance to know syllables 1-5, a 10% chance to know syllable 6, and a 1% chance to know syllable 7. </p>
 
-<h4>WebApp Parameters:</h4>
-<p><b>Learning Strategy: </b>
-The mechanism by which birds learn.  The “Add” strategy allows birds to learn all syllables they hear.  The “AddForget” strategy allows birds to learn all syllables they hear and forget syllables that the learners know but did not hear from their tutor.  The “Consensus” strategy allows birds to listen to multiple tutors.  Birds are more likely to learn syllables that all tutors sang than syllables that only one tutor sang.   They can also forget syllables that the learn knows which no tutor sang.  For the web app, the conformity variant of consensus is implemented.  The “No Oblique” strategy allows for only vertical learning.  The Consensus Tutors slider is only active when the Consensus strategy is chosen and is the number of tutors a learner finds to form a consensus song.</p>
-<p><b>Repertoire Size: </b>The Repertoire Size slider defines the number of syllables that males have a 90% chance of knowing at the beginning of the simulation.  Repertoire Overhang defines how many syllables birds have a 10% and 1% chance to know at the start of the simulation.  This is a percentage that is multiplied by the repertoire size.  E.g. if repertoire size is 5 and repertoire overhang is .2, birds have a 90% chance to know syllables 1-5, a 10% chance to know syllable 6, and a 1% chance to know syllable 7. </p>
+    <p><b>Preference: </b><br/>Whether females prefer males whose song better matches their stored template, males with larger syllable repertoires or a mix of both. </p>
 
-<p><b>Preference: </b>Whether females prefer males whose song better matches their stored template, males with larger syllable repertoires or a mix of both. </p>
+    <p><b>Song-learning Traits: </b><br/>For all song-learning traits, the initial value defines the mode for the initial population.  The noise defines the amount of noise included in inheritance and the initial population distribution.  In short, initial male/chick values are drawn from a beta distribution defined with:
+    <br/><br/>MIN = max(Absolute minimum value, initial value/father’s value - Noise)
+    <br/>MODE = initial value/father’s value
+    <br/>MAX = min(Absolute maximum value, initial value/father’s value + Noise)
+    </p>
 
-<p><b>Song-learning Traits: </b>For all song-learning traits, the initial value defines the mode for the initial population.  The noise defines the amount of noise included in inheritance and the initial population distribution.  In short, initial male/chick values are drawn from a beta distribution defined with:
-<br/><br/>MIN = max(Absolute minimum value, initial value/father’s value - Noise)
-<br/>MODE = initial value/father’s value
-<br/>MAX = min(Absolute maximum value, initial value/father’s value + Noise)
-</p>
+    <b>Misc Traits:</b>
+    <p><u>Learning Penalty</u> defines how strongly males with learning thresholds greater than 1 year are punished with a survival cost.  This penalty is prorated such that males with learning thresholds just above 1 are less severely punished than males with learning thresholds that extend throughout their entire lives. </p>
+    <p><u>Chick Survival</u> defines what proportion of chicks survive to age 1. </p>
+    <p><u>Encounter Success</u> is the chance that males who are capable of learning find appropriate tutors. </p>
+    <p><u>Maximum Age</u> is the oldest age birds can live to. </p>
+    <p><u>Listening Threshold</u> is either:
+    <br/>The number of syllables a learner hears from a tutor’s song.
+    <br/>The percentage of a tutor’s repertoire a male hears. </p>
+    <br/>
+    <hr>
 
-<b>Misc Traits:</b>
-<p><u>Learning Penalty</u> defines how strongly males with learning thresholds greater than 1 year are punished with a survival cost.  This penalty is prorated such that males with learning thresholds just above 1 are less severely punished than males with learning thresholds that extend throughout their entire lives. </p>
-<p><u>Chick Survival</u> defines what proportion of chicks survive to age 1. </p>
-<p><u>Encounter Success</u> is the chance that males who are capable of learning find appropriate tutors. </p>
-<p><u>Maximum Age</u> is the oldest age birds can live to. </p>
-<p><u>Listening Threshold</u> is either:
-<br/>The number of syllables a learner hears from a tutor’s song.
-<br/>The percentage of a tutor’s repertoire a male hears. </p>
-<br/>
-<hr>
-
-<h4>WebApp Core:</h4>
-<p><b>Side Elements: </b> The Set Parameters button loads a parameter set for the model.  The “Parameter-#” value will increase by one once the parameters are loaded and the bird matrix is generated.  The Run Sim button runs the simulation for X timesteps, then refreshes the bird matrix.  The timestep Increment slider defines how many steps are completed before the bird matrix is updated.  The values below this slider are the population averages.</p>
-<p><b>Top Buttons: </b> These radio buttons choose the song-learning trait to color code in the matrix background.  White values are 0 and completely red values are either 1 (Match and Accuracy), the maximum age (Learning Threshold) 9), or 100 or the max value in the population, whichever is larger (Syllable Rep).</p>
-<p><b>Matrix: </b>Eggs represent birds of age 0 (generated in the last timestep).  Black beaked finches represent birds that are of age 1 (generated one timestep prior).  Red-beaked finches include birds of all other ages.</p>
-<br/>
-<hr>
+    <h4>WebApp Core:</h4>
+    <p><b>Side Elements: </b><br/> The Set Parameters button loads a parameter set for the model.  The “Param: #” value will increase by one once the parameters are loaded and the bird matrix is generated.  The Start button automatically runs one timestep, refreshes the bird matrix, pauses, and then repeats this cycle.  The Stop button ends this process.  The Next Steps button runs the simulation for X timesteps, then refreshes the bird matrix.  The Timestep Increment slider defines how many steps are completed before the bird matrix is updated.</p>
+    <p><b>Top Buttons: </b><br/> These radio buttons choose the song-learning trait to color code in the matrix background.  White values are 0 and completely red values are either 1 (Match and Accuracy), the maximum age (Learning Threshold), or either 100 or the max value in the population, whichever is larger (Syllable Rep).</p>
+    <p><b>Matrix: </b><br/>Eggs represent birds of age 0 (generated in the last timestep).  Black beaked finches represent birds that are of age 1 (generated one timestep prior).  Red-beaked finches include birds of all other ages.</p>
+    <br/>
+    <hr>
+</div>
