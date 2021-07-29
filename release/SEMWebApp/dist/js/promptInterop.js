@@ -13,8 +13,8 @@ window.JS = {
     }
     var rows=20;
     var cols=20;
-    //<img src='/Images/egg.png'>
-    var imagenames = ["","<img src='/SEMWebApp/release/SEMWebApp/dist//Images/Chick.png'>", "<img src='/SEMWebApp/release/SEMWebApp/dist//Images/AdultFlip.png'>"];
+    //<img src='/SEMWebApp/release/SEMWebApp/dist/Images/egg.png'>
+    var imagenames = ["","<img src='/SEMWebApp/release/SEMWebApp/dist/Images/Chick.png'>", "<img src='/SEMWebApp/release/SEMWebApp/dist/Images/AdultFlip.png'>"];
     var tr;
     for(let i=0;i<rows;i++){
       tr = document.createElement('tr');
