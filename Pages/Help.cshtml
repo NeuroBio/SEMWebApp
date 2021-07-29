@@ -1,9 +1,9 @@
 @page "/Help"
 <div style="width:900px">
-    <h1>Web App Help <img src="./Images/SS.png" height="100"/></h1>
+    <h1>Web App Help <img src="/SEMWebApp/release/SEMWebApp/dist/Images/SS.png" height="100"/></h1>
     <hr>
     <h4>Overview:</h4>
-    <img src='./Images/cycle.png' width="900px">
+    <img src='/SEMWebApp/release/SEMWebApp/dist/Images/cycle.png' width="900px">
     <p>The Song Evolution Model initializes a population of male birds with several song-learning traits and one song, which exist in a matrix with discrete boundaries. Each timestep, birds can (A) die, or survive to potentially (B) learn and/or (C) father chicks. </p>
     <p>A) Birds are first chosen to die randomly. However, birds with greater learning age thresholds have a greater chance of being chosen to die than those with smaller learning age thresholds. The amount this chance is increased is dependent on both the size of the learning age threshold and the value of the learning penalty parameter. The number of birds chosen to die is a proportion of the birds in each age group depending on the max age of the population. </p>
     <p>B) If oblique learning is enabled, any remaining birds that are younger than their learning age threshold have the capacity to learn. Learners chose a tutor male from the population and learn all or part of the tutor’s song using one of three strategies: 1) Add, 2) AddForget or 4) Consensus. </p>
